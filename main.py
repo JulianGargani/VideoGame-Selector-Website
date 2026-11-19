@@ -247,7 +247,24 @@ def view_recommendation(state: State) -> Page:
     page_content.append(Button("Home", "index"))
 
     return Page(state, page_content)
+# assert_equal tests
+test_state = State([], [], "Any", "Any", "")
 
+save_game(test_state, "Minecraft", "Simulation", False, "Building game")
+
+assert_equal(len(test_state.games), 1)
+assert_equal(test_state.games[0].name, "Minecraft")
+assert_equal(test_state.games[0].genre, "Simulation")
+assert_equal(test_state.games[0].completed, False)
+
+# Checks if to make sure no game is added if game is empty
+
+test_state = State([], [], "Any", "Any", "")
+
+save_game(test_state, "   ", "Action", False, "Test description")
+
+assert_equal(len(test_state.games), 0)
+assert_equal(test_state.message, "Please enter a game name. No game was added.")
 
 # Starts the website with an empty library and default preferences.
 start_server(State(
